@@ -1,0 +1,6 @@
+[
+  { "label": "speed", "object": "game.player" },
+  { "label": "fps", "object": "game" },
+  { "label": "x", "object": "game.player" },
+  { "label": "y", "object": "game.player" }
+]

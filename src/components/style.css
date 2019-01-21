@@ -1,0 +1,22 @@
+.options {
+  padding: 0;
+}
+
+.options li {
+  list-style-type: none;
+  font-weight: bold;
+  text-align: center;
+  margin: 1em 0;
+}
+
+.options li span {
+  text-transform: uppercase;
+  display: block;
+  text-align: center;
+}
+
+.options li input {
+  text-align: center;
+  width: 30%;
+  margin: .5em 0;
+}
