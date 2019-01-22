@@ -5,8 +5,8 @@ import './style.css'
 
 class Options extends Component {
   state = {
-    speed: 3,
-    fps: 60,
+    ay: 0,
+    ax: 0.03,
     x: 100,
     y: 100
   }
@@ -14,10 +14,8 @@ class Options extends Component {
   changeValue = (e, obj) => {
     let value = e.target.value
     let label = e.target.getAttribute('label')
-    this.setState({
-      [label]: +value
-    }, () => {
-      obj[`set${label[0].toUpperCase()+label.slice(1)}`] = +value
+    this.setState({ [label]: +value }, () => {
+      obj[label] = +value
     })
   }
 
@@ -26,7 +24,7 @@ class Options extends Component {
       <ul className='options'>
         { inputs.map((field, i) => (
             <li key={i}>
-              <span>Set {field.label}</span>
+              <span>{field.label}</span>
               <input 
                 type='number' 
                 label={field.label}
