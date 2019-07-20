@@ -3,22 +3,39 @@ import Game from './engine/game.js';
 import PhysicsEntity from './engine/core/model.js';
 import Engine from './engine/core/engine.js';
 import Canvas from './components/canvas';
-import Options from './components/options';
+// import Options from './components/options';
 import Controls from './engine/controller/controls.js';
 import { levelOne, randomLevel } from './engine/maps/level-1.js';
+// import { spriteData } from './engine/sprites/businessman/businessman';
 
 class App extends Component {
-  createEntities = level => {
+  createEntities(level) {
     let entities = [];
-    Object.entries(level).forEach(e => {
-      entities.push(new PhysicsEntity(...e[1].dimensions, e[1].color));
+    Object.entries(level).forEach(l => {
+      entities.push(new PhysicsEntity(...l[1].dimensions, l[1].color));
     });
     return entities;
-  };
+  }
+
+  createSpritesheetMapping(data) {
+    let spritesheet = {};
+    const { frames, meta } = data;
+    Object.keys(frames).forEach(e => {
+      spritesheet = {
+        ...spritesheet,
+        sheet: { image: meta.image, size: meta.size },
+        [frames[e].type]: {
+          ...frames[e].frame
+        }
+      };
+    });
+    return spritesheet;
+  }
 
   render() {
+    //const spritesheet = this.createSpritesheetMapping(spriteData);
     const player = new PhysicsEntity(100, 200, 50, 50, 'black');
-    const entities = this.createEntities(randomLevel());
+    const entities = this.createEntities(levelOne);
     const controls = new Controls();
     const engine = new Engine();
     const game = new Game(player, entities, engine, controls);
