@@ -6,7 +6,7 @@ import Canvas from './components/canvas';
 // import Options from './components/options';
 import Controls from './engine/controller/controls.js';
 import { levelOne, randomLevel } from './engine/maps/level-1.js';
-// import { spriteData } from './engine/sprites/businessman/businessman';
+import { spriteData } from './engine/sprites/businessman/businessman';
 
 class App extends Component {
   createEntities(level) {
@@ -18,23 +18,26 @@ class App extends Component {
   }
 
   createSpritesheetMapping(data) {
-    let spritesheet = {};
     const { frames, meta } = data;
+    let spritesheet = {
+      sheet: { image: meta.image, size: meta.size }
+    };
     Object.keys(frames).forEach(e => {
+      const current = spritesheet[frames[e].type];
+      const sprite = current ? [...current] : [];
+      sprite.push(frames[e].frame);
+
       spritesheet = {
         ...spritesheet,
-        sheet: { image: meta.image, size: meta.size },
-        [frames[e].type]: {
-          ...frames[e].frame
-        }
+        [frames[e].type]: sprite
       };
     });
     return spritesheet;
   }
 
   render() {
-    //const spritesheet = this.createSpritesheetMapping(spriteData);
-    const player = new PhysicsEntity(100, 200, 50, 50, 'black');
+    const spritesheet = this.createSpritesheetMapping(spriteData);
+    const player = new PhysicsEntity(100, 200, 50, 50, 'black', spritesheet);
     const entities = this.createEntities(levelOne);
     const controls = new Controls();
     const engine = new Engine();
