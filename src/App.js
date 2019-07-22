@@ -23,13 +23,18 @@ class App extends Component {
       sheet: { image: meta.image, size: meta.size }
     };
     Object.keys(frames).forEach(e => {
-      const current = spritesheet[frames[e].type];
+      const current =
+        spritesheet[frames[e].type] &&
+        spritesheet[frames[e].type][frames[e].direction];
       const sprite = current ? [...current] : [];
       sprite.push(frames[e].frame);
 
       spritesheet = {
         ...spritesheet,
-        [frames[e].type]: sprite
+        [frames[e].type]: {
+          ...spritesheet[frames[e].type],
+          [frames[e].direction]: sprite
+        }
       };
     });
     return spritesheet;
@@ -41,7 +46,7 @@ class App extends Component {
     const entities = this.createEntities(levelOne);
     const controls = new Controls();
     const engine = new Engine();
-    const game = new Game(player, entities, engine, controls);
+    const game = new Game(player, [], engine, controls);
     return (
       <div className="App">
         <Canvas game={game} />
