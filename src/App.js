@@ -42,11 +42,13 @@ class App extends Component {
 
   render() {
     const spritesheet = this.createSpritesheetMapping(spriteData);
-    const player = new PhysicsEntity(100, 200, 50, 50, 'black', spritesheet);
+    const player = new PhysicsEntity(100, 215, 32, 32, 'black', spritesheet);
+    //const player = new PhysicsEntity(100, 200, 50, 50, 'black');
+
     const entities = this.createEntities(levelOne);
     const controls = new Controls();
     const engine = new Engine();
-    const game = new Game(player, [], engine, controls);
+    const game = new Game(player, entities, engine, controls);
     return (
       <div className="App">
         <Canvas game={game} />
