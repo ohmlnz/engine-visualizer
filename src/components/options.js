@@ -1,43 +1,32 @@
-import React, { Component } from 'react';
-import inputs from './inputs.json';
-import _ from 'lodash';
-import './style.css';
+import React from "react";
+import { ConstantsContext } from "../App.js";
+import _ from "lodash";
+import "./style.css";
 
-class Options extends Component {
-  state = {
-    ay: 0,
-    ax: 0.03,
-    x: 100,
-    y: 100
+const Options = ({ game, changeValue }) => {
+  const renderLabels = obj => {
+    for (let label in obj) {
+      return (
+        <li key={label}>
+          <span>{label}</span>
+          <input
+            type="number"
+            label={label}
+            onChange={e => changeValue(e, _.get(game, field.object))}
+            value={object[label]}
+          />
+        </li>
+      );
+    }
   };
 
-  changeValue = (e, obj) => {
-    let value = e.target.value;
-    let label = e.target.getAttribute('label');
-    this.setState({ [label]: +value }, () => {
-      obj[label] = +value;
-    });
-  };
-
-  render() {
-    return (
-      <ul className="options">
-        {/* {inputs.map((field, i) => (
-          <li key={i}>
-            <span>{field.label}</span>
-            <input
-              type="number"
-              label={field.label}
-              onChange={e =>
-                this.changeValue(e, _.get(this.props, field.object))
-              }
-              value={this.state[field.label]}
-            />
-          </li>
-        ))} */}
-      </ul>
-    );
-  }
-}
+  return (
+    <ConstantsContext.Consumer>
+      {state => (
+        <ul className="options">{this.renderLabels(state.constants)}</ul>
+      )}
+    </ConstantsContext.Consumer>
+  );
+};
 
 export default Options;
