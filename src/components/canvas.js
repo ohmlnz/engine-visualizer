@@ -1,13 +1,5 @@
-import React, { Component } from 'react'
+import React from 'react';
 
-class Canvas extends Component {
-  render() {
-    return (
-      <div>
-        { this.props.game.init() }
-      </div>
-    )
-  }
-}
+const Canvas = ({ game, state }) => <div>{game.init(state)}</div>;
 
-export default Canvas
+export default Canvas;

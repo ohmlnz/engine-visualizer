@@ -1,31 +1,22 @@
-import React from "react";
-import { ConstantsContext } from "../App.js";
-import _ from "lodash";
-import "./style.css";
+import React from 'react';
+import _ from 'lodash';
+import './style.css';
 
-const Options = ({ game, changeValue }) => {
-  const renderLabels = obj => {
-    for (let label in obj) {
-      return (
-        <li key={label}>
+const Options = ({ game, changeValue, state }) => {
+  return (
+    <ul className="options">
+      {Object.keys(state).map((label, i) => (
+        <li key={i}>
           <span>{label}</span>
           <input
             type="number"
             label={label}
-            onChange={e => changeValue(e, _.get(game, field.object))}
-            value={object[label]}
+            onChange={e => changeValue(e, game)}
+            value={state[label]}
           />
         </li>
-      );
-    }
-  };
-
-  return (
-    <ConstantsContext.Consumer>
-      {state => (
-        <ul className="options">{this.renderLabels(state.constants)}</ul>
-      )}
-    </ConstantsContext.Consumer>
+      ))}
+    </ul>
   );
 };
 
