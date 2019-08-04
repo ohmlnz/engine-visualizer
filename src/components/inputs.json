@@ -1,6 +1,0 @@
-[
-  { "label": "ay", "object": "game.player" },
-  { "label": "ax", "object": "game.player" },
-  { "label": "x", "object": "game.player" },
-  { "label": "y", "object": "game.player" }
-]

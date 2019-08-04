@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Game from './engine/game.js';
+import Game from './engine/core/game.js';
 import PhysicsEntity from './engine/core/model.js';
 import Engine from './engine/core/engine.js';
 import Canvas from './components/canvas';
