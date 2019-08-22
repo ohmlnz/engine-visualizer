@@ -8,7 +8,12 @@ import Controls from './engine/controller/controls.js';
 import { levelOne } from './engine/maps/level-1.js';
 import { constants } from './engine/constants.js';
 import { spriteData } from './engine/sprites/businessman/businessman';
-import { displacePoints, generateBackground } from './engine/maps/helpers.js';
+import { smokeParticles } from './engine/sprites/particles/smoke';
+import {
+  displacePoints,
+  generateBackground,
+  createSpriteSheetMapping
+} from './engine/maps/helpers.js';
 
 class App extends Component {
   state = { constants };
@@ -27,35 +32,14 @@ class App extends Component {
     });
   };
 
-  createEntities(level) {
+  createEntities(level, particles) {
     let entities = [];
     Object.entries(level).forEach(l => {
-      entities.push(new PhysicsEntity(...l[1].dimensions, l[1].color));
+      entities.push(
+        new PhysicsEntity(...l[1].dimensions, l[1].color, particles)
+      );
     });
     return entities;
-  }
-
-  createSpriteSheetMapping(data) {
-    const { frames, meta } = data;
-    let spritesheet = {
-      sheet: { image: meta.image, size: meta.size }
-    };
-    Object.keys(frames).forEach(e => {
-      const current =
-        spritesheet[frames[e].type] &&
-        spritesheet[frames[e].type][frames[e].direction];
-      const sprite = current ? [...current] : [];
-      sprite.push(frames[e].frame);
-
-      spritesheet = {
-        ...spritesheet,
-        [frames[e].type]: {
-          ...spritesheet[frames[e].type],
-          [frames[e].direction]: sprite
-        }
-      };
-    });
-    return spritesheet;
   }
 
   changeValue = (e, game) => {
@@ -79,9 +63,10 @@ class App extends Component {
   render() {
     const { constants } = this.state;
     const { x, y } = constants;
-    const spritesheet = this.createSpriteSheetMapping(spriteData);
+    const spritesheet = createSpriteSheetMapping(spriteData);
+    const particles = createSpriteSheetMapping(smokeParticles);
+    const entities = this.createEntities(levelOne, particles);
     const player = new PhysicsEntity(x, y, 32, 32, 'black', spritesheet);
-    const entities = this.createEntities(levelOne);
     const controls = new Controls();
     const engine = new Engine();
     const game = new Game(player, entities, engine, controls);
