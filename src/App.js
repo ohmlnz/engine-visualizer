@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Game from './engine/core/game.js';
-import PhysicsEntity from './engine/core/model.js';
+import PhysicsEntity from './engine/core/models/entity.js';
+import Player from './engine/core/models/player.js';
 import Engine from './engine/core/engine.js';
 import Canvas from './components/canvas';
 import Options from './components/options';
@@ -32,12 +33,10 @@ class App extends Component {
     });
   };
 
-  createEntities(level, particles) {
+  createEntities(level) {
     let entities = [];
     Object.entries(level).forEach(l => {
-      entities.push(
-        new PhysicsEntity(...l[1].dimensions, l[1].color, particles)
-      );
+      entities.push(new PhysicsEntity(...l[1].dimensions, l[1].color));
     });
     return entities;
   }
@@ -65,8 +64,8 @@ class App extends Component {
     const { x, y } = constants;
     const spritesheet = createSpriteSheetMapping(spriteData);
     const particles = createSpriteSheetMapping(smokeParticles);
-    const entities = this.createEntities(levelOne, particles);
-    const player = new PhysicsEntity(x, y, 32, 32, 'black', spritesheet);
+    const entities = this.createEntities(levelOne);
+    const player = new Player(x, y, 32, 32, 'black', spritesheet);
     const controls = new Controls();
     const engine = new Engine();
     const game = new Game(player, entities, engine, controls);
