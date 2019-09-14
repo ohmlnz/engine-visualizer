@@ -1,4 +1,24 @@
+.entity-editor {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-bottom: 1em;
+}
+
+.entity-editor span {
+  display: inline-block;
+  margin: 0 2em;
+}
+
+.entity-editor span:first-child {
+  text-transform: uppercase;
+}
+
 .options {
+  display: flex;
+  margin-top: 0;
   padding: 0;
 }
 
@@ -7,6 +27,7 @@
   font-weight: bold;
   text-align: center;
   margin: 1em 0;
+  margin-top: 0;
 }
 
 .options li span {
@@ -18,5 +39,75 @@
 .options li input {
   text-align: center;
   width: 30%;
-  margin: .5em 0;
+  margin: 0.5em 0;
+}
+
+.background-wrapper {
+  width: 35%;
+  margin: auto;
+}
+
+.background-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  background-color: #000000a1;
+  top: 0;
+  left: 0;
+}
+
+.background-picker div {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.8em;
+  border: 1px solid black;
+  padding: 0.4em;
+  top: 30px;
+  text-align: center;
+}
+
+.background-picker div:hover,
+.background-submit:hover {
+  cursor: pointer;
+  background-color: black;
+  color: white;
+}
+
+.background-modal {
+  position: absolute;
+  border: 1px solid black;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 600px;
+  height: 100px;
+  padding: 2em;
+  text-align: center;
+  background-color: #e4e4e4;
+  top: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.background-modal div {
+  margin: 15px 0 15px 0;
+}
+
+.background-modal input {
+  border: none;
+  border-bottom: 1px solid black;
+  background-color: transparent;
+  font-size: 1.1em;
+  width: 80%;
+}
+
+.background-submit {
+  border: 1px solid black;
+  padding: 4px;
+  width: 20%;
+  margin: auto !important;
+  margin-top: 25px !important;
 }
